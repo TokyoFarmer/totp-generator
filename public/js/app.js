@@ -14,10 +14,20 @@ function truncateTo(str, digits) {
   return str.slice(-digits);
 }
 
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 new Vue({
   el: '#app',
   data: {
-    secret_key: 'JBSWY3DPEHPK3PXP',
+    secret_key: getParameterByName('secret') || 'paste the secret here',
     digits: 6,
     period: 30,
     updatingIn: 0,
