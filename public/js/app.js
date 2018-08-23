@@ -36,6 +36,9 @@ new Vue({
 
   mounted: function () {
     this.update();
+    this.$nextTick(function () {
+      this.copyToClipboard();
+    })
 
     this.intervalHandle = setInterval(this.update, 1000);
   },
@@ -59,6 +62,12 @@ new Vue({
     update: function () {
       this.updatingIn = this.period - (getCurrentSeconds() % this.period);
       this.token = truncateTo(this.totp.generate(), this.digits);
+    },
+    copyToClipboard: function() {
+      if (!this.$refs.tokenInput) return;
+
+      this.$refs.tokenInput.select();
+      document.execCommand('copy');
     }
   }
 });

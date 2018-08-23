@@ -48,10 +48,22 @@
         <progress class="progress is-info is-small" v-bind:value="period - updatingIn" :max="period"></progress>
       </div>
 
-      <div class="tile is-ancestor">
+      <div class="tile is-ancestor is-vertical">
         <div class="tile box">
-          <p class="title is-size-1 has-text-centered" style="margin: auto">{{ token }}</p>
+          <textarea
+            class="title is-size-1 has-text-centered"
+            style="margin: auto; border: none; overflow: hidden; outline: none; box-shadow: none; resize: none;"
+            rows="1"
+            readonly
+            ref="tokenInput"
+          >{{ token }}</textarea>
         </div>
+        <div class="tile button is-fullwidth" @click='copyToClipboard'>
+          Copy to clipboard
+        </div>
+        <p class="tag">
+          Or refresh the page to select the token
+        </p>
       </div>
 
     </div>
